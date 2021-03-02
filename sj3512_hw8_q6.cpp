@@ -1,33 +1,41 @@
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <string>
 
 using namespace std;
+bool isDigitANumber(int i);
 
-int main(){
-
-    string userInput;
-    cout<<"Please enter a line of text:"<<endl;
-    getline(cin, userInput);
-
-    int prev = 0;
+int main() {
     int i;
-    int j;
-
-    for(i=0; i <= userInput.length(); i++){
-        //if we are at the end of a word or the end of a sentence
-        if(userInput[i] == ' ' || i + 1 == userInput.length()){
-            for(j=prev; j<i; j++){
-                if(userInput[j] <= '0' || userInput[j] >= '9')
-                    break;
+    
+    string userInput;
+    cout << "Please enter a line of text"<<endl;
+    getline(cin, userInput);
+    for (i = 0; i <= userInput.length(); i++){
+        if(userInput[i] == ' '){
+            i++;
+            while(isDigitANumber(userInput[i]) == true) {
+                userInput[i]='x';
+                i++;
             }
-            if(j==i){
-                for(j=prev; j<i; j++){
-                    userInput[j] = 'x';
-                }
-            }
-            prev = i+1;
         }
+        if((userInput[0] < '0' && userInput[0] > '9')){
+            i++;
+            while(isDigitANumber(userInput[i]) == false) {
+                userInput[i]=userInput[i];
+                i++;
+            }
+        }
+
     }
+
     cout<<userInput<<endl;
+
     return 0;
+
+}
+bool isDigitANumber(int i){
+        if(i >= '0' && i <= '9') {
+            return true;
+        }
+    return false;
 }
